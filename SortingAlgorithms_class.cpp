@@ -1,12 +1,8 @@
 #include<iostream>	//For reading and writing to console
 #include<fstream>	//For reading and writing to file
 #include<iomanip>	//For output formatting
-#include<cstdlib>
-#include<random>
-#include<ctime>		//For random numbers generation
+#include<random>	//For random numbers generation
 #include<chrono>	//For sorting time measurement
-
-using namespace std;
 
 //CLASSES DECLARATION
 class Sorting		//Parent class for all the others
@@ -16,16 +12,18 @@ class Sorting		//Parent class for all the others
 	Sorting(int size);
 	~Sorting();
 	void print();
-	//print function: Prints the elements of the array to a file, followed by a newline character
+	//Prints the elements of the array to a file, followed by a newline character
 	void randomIntegersFile(int min, int max);
-	//randomIntegersFile: generates a file with random integers within a specified range
+	//Generates a file with random integers within a specified range
 	void readFromFile();
+	//Reads a sequance of integers from a file
 	int getSize() const;
+	//Returns the array size (the number of integers)
 	
 	protected:
 	void swap(int &a, int &b);	//Swaps the values of two integer variables
-	int size;
-	int* A;
+	int size;	//Stores array size
+	int* A;		//A dynamic array pointer
 	};
 
 class Bubblesort : public Sorting
@@ -93,7 +91,8 @@ void mergeBottomUpSort(int arraySize, int min, int max);
 void heapSort(int arraySize, int min, int max);
 
 int main ()
-	{	
+	{
+	using namespace std;	
 	int arraySize, min, max;
 	cout<<"How many elements to sort? ";
 	cin>>arraySize;
@@ -172,59 +171,55 @@ void Sorting::swap(int &a, int &b)
 
 void Sorting::print()
 	{
-	ofstream outputFile;
+	std::ofstream outputFile;
 		outputFile.open("Sorted numbers.txt");
 	if (outputFile.is_open())
-		cout<<"Output file opened correctly\n";
+		std::cout<<"Output file opened correctly\n";
 	else
 		{
-		cout<<"Faild to open the output file\n";
+		std::cout<<"Faild to open the output file\n";
 		exit(1);
 		}
 	
 	for (int i=0; i<size; i++)
 		outputFile<<A[i]<<" ";
-	outputFile<<endl;
+	outputFile<<std::endl;
 
 	outputFile.close();
 	}
 
 void Sorting::randomIntegersFile(int min, int max)
 	{
-	//srand(time(0));
+	std::random_device rd;
+	std::mt19937 engine(rd());
+	std::uniform_int_distribution<int> distribution(min, max);
 	
-	random_device rd;
-	mt19937 engine(rd());
-	uniform_int_distribution<int> distribution(min, max);
-	
-	ofstream inputFileWrite;
+	std::ofstream inputFileWrite;
 	inputFileWrite.open("Unsorted numbers.txt");
 	if (inputFileWrite.is_open())
-		cout<<"\nInput file for writing opened correctly.\n";
+		std::cout<<"\nInput file for writing opened correctly.\n";
 	else
 		{
-		cout<<"Faild to open the input file for writing down the data!\n";
+		std::cout<<"Faild to open the input file for writing down the data!\n";
 		exit(1);
 		}
 	
 	for (int i=0; i<size; i++)
-		//A[i] = rand()%(max-min+1) + min;
-		//inputFileWrite<<rand()%(max-min+1) + min<<" ";
 		inputFileWrite<<distribution(engine)<<" ";
 	
-	cout<<"An input file with random numbers was generated.\n";
+	std::cout<<"An input file with random numbers was generated.\n";
 	inputFileWrite.close();
 	}
 
 void Sorting::readFromFile()
 	{
-	ifstream inputFileRead;
+	std::ifstream inputFileRead;
 	inputFileRead.open("Unsorted numbers.txt");
 	if (inputFileRead.is_open())
-		cout<<"Input file for reading opened correctly.\n";
+		std::cout<<"Input file for reading opened correctly.\n";
 	else
 		{
-		cout<<"Faild to open the input file for reading the data!\n";
+		std::cout<<"Faild to open the input file for reading the data!\n";
 		exit(1);
 		}
 	
@@ -428,6 +423,7 @@ void Heapsort::sort()
 //CLASS FUNCTIONS DEFINITIONS
 void bubbleSort(int arraySize, int min, int max)
 	{
+	using namespace std;
 	Bubblesort Bubble(arraySize);
 	Bubble.randomIntegersFile(min, max);
 	Bubble.readFromFile();
@@ -443,6 +439,7 @@ void bubbleSort(int arraySize, int min, int max)
    
 void insertionSort(int arraySize, int min, int max)
 	{
+	using namespace std;
 	Insertionsort Insertion(arraySize);
 	Insertion.randomIntegersFile(min, max);
 	Insertion.readFromFile();
@@ -453,11 +450,12 @@ void insertionSort(int arraySize, int min, int max)
 	auto duration = chrono::duration_cast<chrono::microseconds>(endTime - startTime).count();
 
 	Insertion.print();
-    cout<<setw(40)<<left<<"Insertion sort sorting time: "<<setw(5)<<right<<duration<<" microseconds"<<endl;
+   std:: cout<<setw(40)<<left<<"Insertion sort sorting time: "<<setw(5)<<right<<duration<<" microseconds"<<endl;
 	}
 
 void quickSort(int arraySize, int min, int max)
 	{
+	using namespace std;
 	Quicksort Quick(arraySize);
 	Quick.randomIntegersFile(min, max);
 	Quick.readFromFile();
@@ -468,11 +466,12 @@ void quickSort(int arraySize, int min, int max)
 	auto duration = chrono::duration_cast<chrono::microseconds>(endTime - startTime).count();
 
 	Quick.print();
-    cout<<setw(40)<<left<<"Quick sort sorting time: "<<setw(5)<<right<<duration<<" microseconds"<<endl;
+	std::cout<<setw(40)<<left<<"Quick sort sorting time: "<<setw(5)<<right<<duration<<" microseconds"<<endl;
 	}
 
 void mergeStandardSort(int arraySize, int min, int max)
 	{
+	using namespace std;
 	Mergesort MergeStd(arraySize);
 	MergeStd.randomIntegersFile(min, max);
 	MergeStd.readFromFile();
@@ -483,11 +482,12 @@ void mergeStandardSort(int arraySize, int min, int max)
 	auto duration = chrono::duration_cast<chrono::microseconds>(endTime - startTime).count();
 
 	MergeStd.print();
-    cout<<setw(40)<<left<<"Merge sort (standard) sorting time: "<<setw(5)<<right<<duration<<" microseconds"<<endl;
+	std::cout<<setw(40)<<left<<"Merge sort (standard) sorting time: "<<setw(5)<<right<<duration<<" microseconds"<<endl;
 	}
 
 void mergeBottomUpSort(int arraySize, int min, int max)
 	{
+	using namespace std;
 	Mergesort MergeBottomUp(arraySize);
 	MergeBottomUp.randomIntegersFile(min, max);
 	MergeBottomUp.readFromFile();
@@ -498,11 +498,12 @@ void mergeBottomUpSort(int arraySize, int min, int max)
 	auto duration = chrono::duration_cast<chrono::microseconds>(endTime - startTime).count();
 
 	MergeBottomUp.print();
-    cout<<setw(40)<<left<<"Merge sort (bottom-up) sorting time: "<<setw(5)<<right<<duration<<" microseconds"<<endl;
+	std::cout<<setw(40)<<left<<"Merge sort (bottom-up) sorting time: "<<setw(5)<<right<<duration<<" microseconds"<<endl;
 	}
 
 void heapSort(int arraySize, int min, int max)
 	{
+	using namespace std;
 	Heapsort Heap(arraySize);
 	Heap.randomIntegersFile(min, max);
 	Heap.readFromFile();
@@ -513,6 +514,5 @@ void heapSort(int arraySize, int min, int max)
 	auto duration = chrono::duration_cast<chrono::microseconds>(endTime - startTime).count();
 
 	Heap.print();
-    cout<<setw(40)<<left<<"Heap sort sorting time: "<<setw(5)<<right<<duration<<" microseconds"<<endl;
+	std::cout<<setw(40)<<left<<"Heap sort sorting time: "<<setw(5)<<right<<duration<<" microseconds"<<endl;
 	}
-
