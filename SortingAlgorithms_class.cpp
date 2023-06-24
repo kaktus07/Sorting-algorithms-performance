@@ -8,17 +8,13 @@
 class Sorting		//Parent class for all the others
 	{
 	public:
-	Sorting();
-	Sorting(int size);
-	~Sorting();
-	void print();
-	//Prints the elements of the array to a file, followed by a newline character
-	void randomIntegersFile(int min, int max);
-	//Generates a file with random integers within a specified range
-	void readFromFile();
-	//Reads a sequance of integers from a file
-	int getSize() const;
-	//Returns the array size (the number of integers)
+	Sorting();				//Default constructor of the Sorting class.
+	Sorting(int size);		//Parametarized constructor of the Sorting class.
+	~Sorting();				//The destructor of the Sorting class.
+	void print();			//Prints the elements of the array to a file, followed by a newline character
+	void randomIntegersFile(int min, int max);	//Generates a file with random integers within a specified range
+	void readFromFile();	//Reads a sequance of integers from a file
+	int getSize() const;	//Returns the array size (the number of integers)
 	
 	protected:
 	void swap(int &a, int &b);	//Swaps the values of two integer variables
@@ -29,30 +25,28 @@ class Sorting		//Parent class for all the others
 class Bubblesort : public Sorting
     {
     public:
-    Bubblesort() : Sorting() { }
-    Bubblesort(int size) : Sorting(size) { }
-    void sort();
+    Bubblesort() : Sorting() { }				//Default constructor
+    Bubblesort(int size) : Sorting(size) { }	//Parametrized constructor
+    void sort();								//Sorts the elements of the array using the bubble sort algorithm.
     
     private:
+    // No additional private members in the Bubblesort class.
     };
 
 class Insertionsort : public Sorting
 	{
 	public:
-	Insertionsort() : Sorting() { }
-	Insertionsort(int size) : Sorting(size) { }
-	void sort();
+	Insertionsort() : Sorting() { }				//Default constructor
+	Insertionsort(int size) : Sorting(size) { }	//Parameterized constructor
+	void sort();		//Sorts the elements of the array using the insertion sort algorithm.
 	};
 
 class Quicksort : public Sorting
     {
     public:
-    Quicksort() : Sorting() { }
-    //Default constructor which uses the constructor from the base class Sorting
-    Quicksort(int size) : Sorting(size) { }
-    //Second constructor which uses the constructor from the base class Sorting
-    void sort(int i, int j);
-    //Quicksort sorting function: Sorts the subarray [i, j] using the quicksort algorithm.
+    Quicksort() : Sorting() { }				//Default constructor
+    Quicksort(int size) : Sorting(size) { }	//Parameterized constructor
+    void sort(int i, int j);				//Sorts the subarray [i, j] using the quicksort algorithm.
 
     private:
     int partition(int first, int last, int pivot);
@@ -62,33 +56,64 @@ class Quicksort : public Sorting
 class Mergesort : public Sorting
     {
     public:
-    Mergesort() : Sorting() { }
-    Mergesort(int size) : Sorting(size) { }
-	void sort(int left, int right);
+    Mergesort() : Sorting() { }				//Default constructor
+    Mergesort(int size) : Sorting(size) { }	//Parameterized constructor
+	void sort(int left, int right);			//Sorts the elements of the array using the merge sort algorithm.
     
     private:
-	void mergeStandard(int left, int middle, int right);
-	void mergeBottomUp(int left, int middle, int right);
+	void mergeStandard(int left, int middle, int right);	//Performs the standard merge operation for merge sort.
+	void mergeBottomUp(int left, int middle, int right);	// Performs the bottom-up merge operation for merge sort.	
+
     };
 
 class Heapsort : public Sorting
     {
     public:
-    Heapsort() : Sorting() { }
-    Heapsort(int size) : Sorting(size) { }
-    void sort();
+    Heapsort() : Sorting() { }				//Default constructor
+    Heapsort(int size) : Sorting(size) { }	//Parameterized constructor
+    void sort();							//Sorts the elements of the array using the heap sort algorithm.
     
 	private:
-	void heapify(int i, int heapSize);
+	void heapify(int i, int heapSize);		// Performs the heapify operation for heap sort.
     };
 
 //FUNCTIONS DECLARATIONS
 void bubbleSort(int arraySize, int min, int max);
+// Sorts an array of integers using the bubble sort algorithm.
+// Parameters:
+// - arraySize: The size of the array.
+// - min: The minimum value for generating random integers.
+// - max: The maximum value for generating random integers.
 void insertionSort(int arraySize, int min, int max);
+// Sorts an array of integers using the insertion sort algorithm.
+// Parameters:
+// - arraySize: The size of the array.
+// - min: The minimum value for generating random integers.
+// - max: The maximum value for generating random integers.
 void quickSort(int arraySize, int min, int max);
+// Sorts an array of integers using the quick sort algorithm.
+// Parameters:
+// - arraySize: The size of the array.
+// - min: The minimum value for generating random integers.
+// - max: The maximum value for generating random integers.
 void mergeStandardSort(int arraySize, int min, int max);
+// Sorts an array of integers using the standard merge sort algorithm.
+// Parameters:
+// - arraySize: The size of the array.
+// - min: The minimum value for generating random integers.
+// - max: The maximum value for generating random integers.
 void mergeBottomUpSort(int arraySize, int min, int max);
+// Sorts an array of integers using the bottom-up merge sort algorithm.
+// Parameters:
+// - arraySize: The size of the array.
+// - min: The minimum value for generating random integers.
+// - max: The maximum value for generating random integers.
 void heapSort(int arraySize, int min, int max);
+// Sorts an array of integers using the heap sort algorithm.
+// Parameters:
+// - arraySize: The size of the array.
+// - min: The minimum value for generating random integers.
+// - max: The maximum value for generating random integers.
 
 int main ()
 	{
@@ -140,29 +165,34 @@ int main ()
 	}
 
 //SORTING CLASSES DEFINITIONS
-Sorting::Sorting()	//default constructor
+Sorting::Sorting()
+	//Default constructor
 	{
 	size=10;
 	A = new int[size];
 	}
 	
-Sorting::Sorting(int size)	//constructor with declared array size
+Sorting::Sorting(int size)
+	//Constructor with declared array size
 	{
 	this -> size = size;
 	A = new int[size];
 	}
 	
 	Sorting::~Sorting()
+	//Destructor
 	{
 	delete[] A;
 	}
 	
 int Sorting::getSize() const
+	//Returns the array size
 	{
 	return size;
 	}
 
 void Sorting::swap(int &a, int &b)
+	//Swaps the values of two integer variables
 	{
 	int temp=a;
 	a=b;
@@ -170,6 +200,7 @@ void Sorting::swap(int &a, int &b)
 	}
 
 void Sorting::print()
+	//Prints the elements of the array to a file, followed by a newline character
 	{
 	std::ofstream outputFile;
 		outputFile.open("Sorted numbers.txt");
@@ -189,6 +220,7 @@ void Sorting::print()
 	}
 
 void Sorting::randomIntegersFile(int min, int max)
+	// Generates a file with random integers within a specified range
 	{
 	std::random_device rd;
 	std::mt19937 engine(rd());
@@ -212,6 +244,7 @@ void Sorting::randomIntegersFile(int min, int max)
 	}
 
 void Sorting::readFromFile()
+	// Reads a sequence of integers from a file
 	{
 	std::ifstream inputFileRead;
 	inputFileRead.open("Unsorted numbers.txt");
@@ -231,6 +264,7 @@ void Sorting::readFromFile()
 	}
 
 void Bubblesort::sort()
+	//Sorts the elements of the array using the bubble sort algorithm
 	{
 	for (int i=0;i<getSize(); i++)
 		for (int j=0; j<getSize()-i-1; j++)
@@ -242,6 +276,7 @@ void Bubblesort::sort()
 
 void Insertionsort::sort()
 	{
+	//Sorts the elements of the array using the insertion sort algorithm
 	for (int i=1; i<getSize(); i++)
 		{
 		int j=i;
@@ -254,7 +289,8 @@ void Insertionsort::sort()
 	}
 
 int Quicksort::partition(int first, int last, int pivot)
-{
+	//Partitions the array into two halves and returns the index of the pivot
+	{
 	int i=first;
 	int j=last;
 	while (i<=j)
@@ -270,24 +306,26 @@ int Quicksort::partition(int first, int last, int pivot)
 			j--;
 			}
 		}
-	swap(A[i], A[last]);	//move pivot to its correct position
-	return i;	//By now i is set to the sorted index position
-}
+	swap(A[i], A[last]);	//Move pivot to its correct position
+	return i;	//By now, i is set to the sorted index position
+	}
 
 void Quicksort::sort(int i, int j)
-{
+	//Sorts the elements of the array using the quicksort algorithm
+	{
 	if (i<j)	//(pivotIndex != 0)
 		{
 		int pivotIndex = i + rand()%(j-i+1);	//Returns a random index between 'first' and 'last' (inclusive)
-		swap(A[pivotIndex], A[j]); // Move the pivot to the last position
+		swap(A[pivotIndex], A[j]); //Move the pivot to the last position
 		int pivot = A[j];
 		int k=partition(i, j, pivot);
 		sort(i, k-1);
 		sort(k+1, j);
 		}
-}
+	}
 
 void Mergesort::sort(int left, int right)
+	//Sorts the elements of the array using the merge sort algorithm
 	{
 	if (left < right)
 		{
@@ -301,6 +339,7 @@ void Mergesort::sort(int left, int right)
 	}
 
 void Mergesort::mergeBottomUp(int left, int middle, int right)
+	//Merges two sorted subarrays into a single sorted subarray (bottom-up approach)
 	{
 	int i = left;
 	int j = middle + 1;
@@ -323,6 +362,7 @@ void Mergesort::mergeBottomUp(int left, int middle, int right)
 	}
 
 void Mergesort::mergeStandard(int left, int middle, int right)
+	//Merges two sorted subarrays into a single sorted subarray (standard approach)
 	{
 	int n1 = middle - left - 1;
 	int n2 = right - middle;
@@ -377,6 +417,7 @@ void Mergesort::mergeStandard(int left, int middle, int right)
 	}
 
 void Heapsort::heapify(int i, int heapSize)
+	//Heapify the subtree rooted at index i
 	{
 	int largest = i;	//Initialize largest as the root
 	int left = 2*i+1;	//Left child index
@@ -385,37 +426,34 @@ void Heapsort::heapify(int i, int heapSize)
 	//Check if the left child is greater than the root
 	if (left < heapSize && A[left] > A[largest])
 		largest = left;
+	
 	//Check if the right child is larger than the largest so far
 	if (right < heapSize && A[right] > A[largest])
 		largest = right;
+	
 	//If the largest is not the root
 	if (largest!= i)
 		{
-		swap(A[i], A[largest]);
-	
-		//Recursively heapify the affected subtree
-		heapify(largest, heapSize);
+		swap(A[i], A[largest]);	
+		heapify(largest, heapSize);	//Recursively heapify the affected subtree
 		}
 	}
 	
 void Heapsort::sort()
 	{
+	//Sorts the elements of the array using the heap sort algorithm
 	int n = getSize();
 	
-	 //Build a max heap
+	//Build a max heap
 	for (int i = n/2 - 1; i>=0; i--)
 		heapify(i, n);
 	
-	//Extract elements from the heap to be one by one
+	//Extract elements from the heap one by one
 	for (int i=n-1;i>=1; i--)
 		{
-		//Move the currect root (maximum element) to the end of the sorted array
-		swap(A[0], A[i]);
-		//Reduce the size of the unsorted heap by 1
-		n--;
-		
-		//Call heapify on the reduced heap
-		heapify(0, n);
+		swap(A[0], A[i]);	//Move the currect root (maximum element) to the end of the sorted array
+		n--;				//Reduce the size of the unsorted heap by 1
+		heapify(0, n);		//Call heapify on the reduced heap
 		}
 	}
 
@@ -424,6 +462,8 @@ void Heapsort::sort()
 void bubbleSort(int arraySize, int min, int max)
 	{
 	using namespace std;
+
+	//Create an instance of Bubblesort class
 	Bubblesort Bubble(arraySize);
 	Bubble.randomIntegersFile(min, max);
 	Bubble.readFromFile();
@@ -440,6 +480,8 @@ void bubbleSort(int arraySize, int min, int max)
 void insertionSort(int arraySize, int min, int max)
 	{
 	using namespace std;
+
+    //Create an instance of Insertionsort class
 	Insertionsort Insertion(arraySize);
 	Insertion.randomIntegersFile(min, max);
 	Insertion.readFromFile();
@@ -456,6 +498,8 @@ void insertionSort(int arraySize, int min, int max)
 void quickSort(int arraySize, int min, int max)
 	{
 	using namespace std;
+
+    //Create an instance of Quicksort class
 	Quicksort Quick(arraySize);
 	Quick.randomIntegersFile(min, max);
 	Quick.readFromFile();
@@ -472,6 +516,8 @@ void quickSort(int arraySize, int min, int max)
 void mergeStandardSort(int arraySize, int min, int max)
 	{
 	using namespace std;
+	
+    //Create an instance of Mergesort class
 	Mergesort MergeStd(arraySize);
 	MergeStd.randomIntegersFile(min, max);
 	MergeStd.readFromFile();
@@ -488,6 +534,8 @@ void mergeStandardSort(int arraySize, int min, int max)
 void mergeBottomUpSort(int arraySize, int min, int max)
 	{
 	using namespace std;
+	
+    //Create an instance of Mergesort class
 	Mergesort MergeBottomUp(arraySize);
 	MergeBottomUp.randomIntegersFile(min, max);
 	MergeBottomUp.readFromFile();
@@ -504,6 +552,8 @@ void mergeBottomUpSort(int arraySize, int min, int max)
 void heapSort(int arraySize, int min, int max)
 	{
 	using namespace std;
+	
+    //Create an instance of Heapsort class
 	Heapsort Heap(arraySize);
 	Heap.randomIntegersFile(min, max);
 	Heap.readFromFile();
